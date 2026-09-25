@@ -6,9 +6,8 @@ A gradient-boosted model that forecasts next month's **US unemployment rate**
 from lagged macroeconomic indicators — and explains *why* it made each
 prediction using SHAP, not just what it predicted.
 
-**▶ Run it instantly, no setup:** click the badge above to open the full
-walkthrough in Google Colab. It fetches live data, trains the model, and
-generates every plot from scratch — nothing is precomputed.
+This fetches live data, trains the model, and
+generates every plot from scratch — nothing is precomputed in this model . 
 
 Built to sit at the intersection of economics and applied ML: the modeling
 choices (chronological train/test split, lag/rolling features, no shuffling)
@@ -49,27 +48,7 @@ Five monthly series pulled directly from [FRED](https://fred.stlouisfed.org)
 
 ## Quickstart
 
-**Option A — Colab (recommended, zero setup):** click the badge at the top
-of this README.
-
-**Option B — run locally:**
-
-```bash
-git clone <your-repo-url>
-cd econ-forecast-explainable-ml
-python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-
-python src/fetch_data.py    # downloads the 5 FRED series to data/
-python src/train.py         # builds features, trains the model, saves metrics
-python src/explain.py       # saves SHAP plots to outputs/
-
-streamlit run app/streamlit_app.py   # interactive dashboard
-```
-
-The Streamlit app lets you pick any historical month, see the model's
-forecast next to the actual outcome, and inspect the SHAP explanation behind
-that specific prediction.
+**Project has been developed on Colab:** 
 
 ## Results
 
@@ -78,7 +57,7 @@ here, e.g.:_
 
 | Metric | Value |
 |---|---|
-| MAE (test) | ~0.2 pts |
+| MAE (test) | ~ 0.188 pts |
 | RMSE (test) | ~0.3 pts |
 | R² (test) | ~0.85 |
 
