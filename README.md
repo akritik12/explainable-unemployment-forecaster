@@ -1,25 +1,26 @@
-# explainable-unemployment-forecaster
-a model that predicts an indicator (inflation, unemployment, GDP growth) and use SHAP to explain why it predicts what it does.
 # Explainable Unemployment Rate Forecaster
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![XGBoost](https://img.shields.io/badge/XGBoost-Forecasting-green)
+![SHAP](https://img.shields.io/badge/Explainable_AI-SHAP-orange)
+![FRED](https://img.shields.io/badge/Data-FRED-red)
+![Streamlit](https://img.shields.io/badge/Deployment-Streamlit-ff4b4b)
+
+An end-to-end economic forecasting project that combines machine learning with Explainable AI (SHAP) to forecast next month's U.S. unemployment rate while interpreting the economic drivers behind every prediction.
 
 A gradient-boosted model that forecasts next month's **US unemployment rate**
 from lagged macroeconomic indicators — and explains *why* it made each
 prediction using SHAP, not just what it predicted.
 
-This fetches live data, trains the model, and
-generates every plot from scratch — nothing is precomputed in this model . 
-
-Built to sit at the intersection of economics and applied ML: the modeling
-choices (chronological train/test split, lag/rolling features, no shuffling)
-are the ones an economist would insist on before trusting a black box.
+The pipeline fetches live macroeconomic data from FRED, trains the model, and generates every forecast and visualization from scratch—nothing is precomputed.
+Built at the intersection of economics and applied machine learning, the forecasting pipeline follows time-series practices that an economist would expect before trusting a predictive model: chronological train/test splits, lagged features, rolling averages, and zero future-data leakage.
 
 ## Why explainability, not just accuracy
 
 A forecast without a reason isn't useful to a policymaker or analyst — it's a
 number to either blindly trust or ignore. 
-This project pairs every prediction with a **SHAP waterfall plot** showing exactly which indicators (rising Fed
+This project pairs every prediction with a **SHAP waterfall plot** that quantifies exactly which indicators (rising Fed
 funds rate, slowing industrial production, etc.) pushed the forecast up or
-down, and by how much.
+down, and by how much. 
 
 ## Data
 
@@ -34,21 +35,31 @@ Five monthly series pulled directly from [FRED](https://fred.stlouisfed.org)
 | `DGS10` | 10-Year Treasury yield (%) |
 | `INDPRO` | Industrial Production Index |
 
+Together, these indicators capture labor market conditions, inflation dynamics, monetary policy, financial markets, and real economic activity, providing a compact but economically meaningful forecasting feature set.
 ## Method
 
 1. **Feature engineering** — 1/2/3/6/12-month lags, 3- and 6-month rolling
    means, and 1/3-month momentum for every series (`src/features.py`).
-2. **Model** — `XGBRegressor`, tuned lightly for a small monthly dataset
-   (shallow trees, subsampling to reduce overfitting).
-3. **Evaluation** — a **chronological** train/test split (last 36 months held
+   
+3. **Model** — `XGBRegressor`,configured with shallow trees and subsampling to improve generalization on a relatively small monthly time-series dataset.
+4. **Evaluation** — a **chronological** train/test split (last 36 months held
    out). Shuffling time series data would leak the future into training and
    overstate accuracy — this project deliberately avoids that mistake.
-4. **Explainability** — `shap.TreeExplainer` generates both a global feature
+5. **Explainability** — `shap.TreeExplainer` generates both a global feature
    importance summary and a per-prediction waterfall explanation.
 
 ## Quickstart
 
-**Project has been developed on Colab:** 
+The project was developed in **Google Colab**, and the easiest way to reproduce the analysis is by running `notebooks/Explainable_Unemployment_forecast.ipynb`.
+
+To run the modular pipeline locally:
+
+```bash
+pip install -r requirements.txt
+python src/fetch_data.py
+python src/train.py
+python src/explain.py
+```
 
 ## Results
 
@@ -61,7 +72,7 @@ here, e.g.:_
 | RMSE (test) | ~0.3 pts |
 | R² (test) | ~0.85 |
 
-_(Evaluated on the most recent 36 months, held out chronologically.)_
+_(Performance is evaluated on the most recent 36 months, held out chronologically to preserve the integrity of time-series forecasting)_
 
 ## Project structure
 
@@ -73,6 +84,9 @@ src/
   features.py       Lag / rolling / momentum feature engineering
   train.py          Chronological split, XGBoost training, metrics
   explain.py         SHAP summary + waterfall plots -> outputs/
+
+This dual structure makes the project approachable for readers while keeping the code reusable for future forecasting workflows.
+
 app/
   streamlit_app.py  Interactive dashboard
 data/                Downloaded macro series (generated, gitignored)
@@ -86,7 +100,7 @@ pipeline outside a notebook.
 
 ## Ideas for extending this
 
-- Swap the target for CPI inflation or GDP growth to compare forecastability.
+- Compare SHAP explanations across different economic regimes (pre- and post-pandemic).
 - Add a naive/ARIMA baseline to `train.py` so the ML lift is quantified, not assumed.
 - Backtest with a rolling-origin (walk-forward) evaluation instead of one fixed split.
 - Deploy the Streamlit app on Streamlit Community Cloud and link it from this README.
