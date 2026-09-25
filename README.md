@@ -13,10 +13,25 @@ A gradient-boosted model that forecasts next month's **US unemployment rate**
 from lagged macroeconomic indicators — and explains *why* it made each
 prediction using SHAP, not just what it predicted.
 
-The pipeline fetches live macroeconomic data from FRED, trains the model, and generates every forecast and visualization from scratch—nothing is precomputed.
+The project automatically downloads live macroeconomic data from the Federal Reserve Economic Data (FRED) database, engineers time-series features, trains an XGBoost forecasting model, and explains every prediction using SHAP. A deployed Streamlit application allows users to interactively explore forecasts and the economic drivers behind them., trains the model, and generates every forecast and visualization from scratch—nothing is precomputed.
 Built at the intersection of economics and applied machine learning, the forecasting pipeline follows time-series practices that an economist would expect before trusting a predictive model: chronological train/test splits, lagged features, rolling averages, and zero future-data leakage.
 
+
 ## Why explainability, not just accuracy
+
+## Live Demo
+
+Explore the deployed dashboard here:
+
+**https://unemployment-forecaster-akriti.streamlit.app/**
+
+The dashboard includes:
+
+- Real-time unemployment trend visualization
+- Interactive month selection
+- Model forecast vs. actual comparison
+- SHAP waterfall explanations
+- Global feature importance
 
 A forecast without a reason isn't useful to a policymaker or analyst — it's a
 number to either blindly trust or ignore. 
@@ -99,6 +114,20 @@ The notebook and the `src/` scripts implement the same pipeline two ways:
 the notebook is for reading top-to-bottom and running in one click; the
 scripts are for anyone who wants to import `features.py` or automate the
 pipeline outside a notebook.
+
+## Dashboard Preview
+
+### Forecast Dashboard
+
+![Dashboard](outputs/screenshots/dashboard.png)
+
+### SHAP Explanation
+
+![Waterfall](outputs/screenshots/waterfall.png)
+
+### Global Feature Importance
+
+![SHAP Summary](outputs/screenshots/shap_summary.png)
 
 ## Ideas for extending this
 
