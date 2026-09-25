@@ -1,0 +1,5 @@
+This project downloads live macroeconomic data directly from the Federal Reserve Economic Data (FRED) database.
+
+To keep the repository lightweight, raw and processed datasets are generated when the pipeline is executed and are not stored in GitHub.
+
+Run src/fetch_data.py to recreate the datasets locally
