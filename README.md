@@ -121,25 +121,21 @@ pipeline outside a notebook.
 
 The deployed Streamlit dashboard allows users to explore historical unemployment trends, compare forecasts with actual values, and understand model decisions through SHAP explainability.
 
-![Dashboard](outputs/screenshots/dashboard.png)
-
 ### Forecast vs. Actual
 
 Interactive comparison of predicted and observed unemployment rates.
 
-![Forecast Chart](outputs/screenshots/forecast_chart.png)
 
 ### SHAP Waterfall Explanation
 
 Each forecast is accompanied by a local SHAP explanation showing how individual macroeconomic indicators influenced the prediction.
 
-![Waterfall](outputs/screenshots/waterfall.png)
 
 ### Global Feature Importance
 
 SHAP summary plot highlighting the variables that consistently influence unemployment forecasts across the dataset.
 
-![SHAP Summary](outputs/screenshots/shap_summary.png)
+
 ## Ideas for extending this
 
 - Compare SHAP explanations across different economic regimes (pre- and post-pandemic).
