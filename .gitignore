@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Generated data
+data/raw/*
+!data/raw/.gitkeep
+
+data/processed/*
+!data/processed/.gitkeep
+
+# Generated outputs
+outputs/figures/*
+!outputs/figures/.gitkeep
+
+outputs/tables/*
+!outputs/tables/.gitkeep
+
+outputs/model_metrics/*
+!outputs/model_metrics/.gitkeep
+
+# Model artifacts
+outputs/model.joblib
+outputs/feature_frame.csv
+outputs/metrics.json
