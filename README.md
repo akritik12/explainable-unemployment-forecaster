@@ -1,4 +1,6 @@
 # Explainable Unemployment Rate Forecaster
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Streamlit-red?style=for-the-badge&logo=streamlit)](https://unemployment-forecaster-akriti.streamlit.app/)
+
 ![Python](https://img.shields.io/badge/Python-3.10-blue)
 ![XGBoost](https://img.shields.io/badge/XGBoost-Forecasting-green)
 ![SHAP](https://img.shields.io/badge/Explainable_AI-SHAP-orange)
